@@ -6,6 +6,9 @@
 
 const TournamentCell = require('./tournament_cell')
 
+import Reflux from 'reflux';
+import scores from './../stores/scores';
+
 import React, {
   Component,
   Image,
@@ -16,43 +19,24 @@ import React, {
   View,
 } from 'react-native';
 
-var API_URL = 'https://omega-bearing-780.appspot.com/_ah/api/scores/v1/all_games';
-var NUM_GAMES = 10;
-var PARAMS = '?count=' + NUM_GAMES;
-var REQUEST_URL = API_URL + PARAMS;
+var GamesComponent = React.createClass({
+  displayName: 'GamesComponent',
 
-class GamesComponent extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
+  mixins: [Reflux.connect(scores, 'tournaments')],
+
+  getInitialState() {
+    return {
       dataSource: new ListView.DataSource({
         rowHasChanged: (row1, row2) => row1 !== row2,
       }),
-      division: "ALL",
-      ageBracket: "COLLEGE",
-      allData: [],
-      filteredData: [],
-      loaded: false,
     };
-  }
+  },
 
   componentDidMount() {
-    // TODO: change back to fetchData()
-    this.fetchMockData();
-  }
+    scores.emit();
+  },
 
-  fetchData() {
-    fetch(REQUEST_URL)
-      .then((response) => response.json())
-      .then((responseData) => {
-        this.setState({
-          dataSource: this.state.dataSource.cloneWithRows(responseData.games),
-          loaded: true,
-        });
-      })
-      .done();
-  }
-
+  // TODO: move data to tournament json blob and change render function below to use that data.
   fetchMockData() {
     var allData = [
         {
@@ -89,69 +73,38 @@ class GamesComponent extends Component {
           age_bracket: "CLUB",
         },
       ];
-    this.filterData(allData);
-  }
-
-  // filterData restricts the visible games by the filters selected in the UI.
-  filterData(allData) {
-    var filteredData = [];
-    if (this.state.division == "ALL") {
-      filteredData = allData;
-    } else {
-      for (var i = 0; i < allData.length; i++) {
-        var row = allData[i];
-        console.log(row);
-        if (row.division == this.state.division) {
-          // TODO: this is probably n^2; probably a better way
-          filteredData = filteredData.concat([row]);
-        }
-      }
-    }
-    console.log("after filter: ");
-    console.log(filteredData);
-    var ageBracketFiltered = [];
-    for (var i = 0; i < filteredData.length; i++) {
-      var row = filteredData[i];
-      console.log(row);
-      if (row.age_bracket == this.state.ageBracket) {
-        // TODO: this is probably n^2; probably a better way
-        ageBracketFiltered = ageBracketFiltered.concat([row]);
-      }
-    }
-    this.setState({
-      dataSource: this.state.dataSource.cloneWithRows(ageBracketFiltered),
-      allData: allData,
-      filteredData: ageBracketFiltered,
-      loaded: true,
-    });
-  }
+    return allData;
+  },
 
   render() {
-    if (!this.state.loaded) {
+    if (!this.state.tournaments || this.state.tournaments.length === 0) {
+      console.log('loading view for games');
       return this.renderLoadingView();
     }
 
+    // ListView contents should look more like the following:
+    //      dataSource={this.state.dataSource.cloneWithRows(
+    //        this.state.tournaments[this.props.tournament])}
     return (
       <View style={styles.outerContainer}>
         <TournamentCell tournament={this.props.tournament}/>
         <ListView
-          dataSource={this.state.dataSource}
+          dataSource={this.state.dataSource.cloneWithRows(
+            this.fetchMockData())}
           renderRow={(game) => this.renderGame(game)}
           style={styles.listView}
         />
       </View>
     );
-  }
+  },
 
   renderLoadingView() {
     return (
       <View style={styles.loadContainer}>
-        <Text>
-          Loading games...
-        </Text>
+        <Text> Loading games... </Text>
       </View>
     );
-  }
+  },
 
   renderGame(game) {
     return (
@@ -183,8 +136,8 @@ class GamesComponent extends Component {
         </View>
       </View>
     );
-  }
-}
+  },
+});
 
 function getImage(team) {
   return 'file:///Users/martincochran/Pictures/IMG_1073.JPG'
@@ -310,5 +263,4 @@ var styles = StyleSheet.create({
   },
 });
 
-
-module.exports = GamesComponent;
+export default GamesComponent;

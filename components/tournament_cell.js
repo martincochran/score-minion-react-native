@@ -1,5 +1,4 @@
 'use strict';
-const GamesComponent = require('./game')
 
 import React, {
   Component,

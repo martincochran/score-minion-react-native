@@ -5,8 +5,9 @@ import React, {
   Text,
 } from 'react-native';
 
-const GamesComponent = require('./game')
-const TournamentComponent = require('./tournaments')
+import TournamentComponent from './tournaments';
+
+import GamesComponent from './game';
 
 class NavComponent extends Component {
 
@@ -37,7 +38,6 @@ class NavComponent extends Component {
         renderScene={(route, navigator) => {
           var numRoutes = this.numRoutes();
           var enabled = (numRoutes >= 2);
-          //this.props.onNavigate(enabled);
           if (route.name == 'Tournaments') {
             return (<TournamentComponent name={route.name} navigator={navigator} />);
           } else {
