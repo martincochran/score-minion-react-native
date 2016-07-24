@@ -78,7 +78,6 @@ var GamesComponent = React.createClass({
 
   render() {
     if (!this.state.tournaments || this.state.tournaments.length === 0) {
-      console.log('loading view for games');
       return this.renderLoadingView();
     }
 

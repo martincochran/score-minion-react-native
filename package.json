@@ -8,5 +8,8 @@
   "dependencies": {
     "react-native": "^0.21.0",
     "reflux": "^0.4.1"
+  },
+  "devDependencies": {
+    "flow-bin": "^0.29.0"
   }
 }

@@ -60,7 +60,7 @@ var TournamentComponent = React.createClass({
     return (
       <View style={styles.loadContainer}>
         <Text>
-          Loading tournaments...
+          No matching tournaments.
         </Text>
       </View>
     );

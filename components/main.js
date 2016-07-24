@@ -12,6 +12,8 @@ import React, {
   View,
 } from 'react-native';
 
+import {SelectLeague, SelectDivision} from './../components/actions';
+
 class MainComponent extends Component {
 
   goHome() {
@@ -44,6 +46,9 @@ class MainComponent extends Component {
             selectedIndex={0}
             enabled={true}
             style={styles.divisionControlView}
+            // TODO: if AUDL / MLU is selected, force selection of division
+            // and grey out control.
+            onValueChange={(league) => SelectLeague(league)}
           />
           <NavComponent
             ref='navigator'
@@ -54,6 +59,7 @@ class MainComponent extends Component {
             selectedIndex={0}
             enabled={true}
             style={styles.divisionControlView}
+            onValueChange={(div) => SelectDivision(div)}
           />
         </View>
     );

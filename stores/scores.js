@@ -15,13 +15,13 @@ export default Reflux.createStore({
     this._ageBracket = "CLUB";
     this._league = "USAU";
     this._loadScores().done();
-    this.listenTo(SelectLeague, this.selectLeague);
-    this.listenTo(SelectDivision, this.selectDivision);
+    this.listenTo(SelectLeague, (league) => this.selectLeague(league));
+    this.listenTo(SelectDivision, (div) => this.selectDivision(div));
   },
 
   // Loads the scores to the local storage.
   async _loadScores() {
-    console.log('loading scores')
+    console.log('No matching games')
     // TODO: load from local storage.
     this._fetchScores();
   },
@@ -70,7 +70,7 @@ export default Reflux.createStore({
             "id_str": "TCT-Pro-Elite-Challenge-2016-Colorado-Cup",
             "image_url_https": "file:///Users/martincochran/Pictures/thumb_IMG_1069_1024.jpg",
             "divisions": ["MIXED", "WOMEN"],
-            "age_brackets": ["COLLEGE"],
+            "age_brackets": ["NO_RESTRICTION"],
             "league": "AUDL",
             "dates": "April 9th-10th",
           },
@@ -80,7 +80,7 @@ export default Reflux.createStore({
             "id_str": "CUC-Ridgefield-High-School-Club-Practices",
             "image_url_https": "file:///Users/martincochran/Pictures/thumb_IMG_1069_1024.jpg",
             "divisions": ["MIXED", "OPEN"],
-            "age_brackets": ["CLUB"],
+            "age_brackets": ["NO_RESTRICTION"],
             "league": "MLU",
             "dates": "April 9th",
           },
@@ -88,8 +88,6 @@ export default Reflux.createStore({
   },
 
   _updateVisibleScores() {
-    console.log('all data');
-    console.log(this._allData);
     // Go through all scores, omitting tournaments and games that don't match.
     var filteredData = [];
     if (this._division == "ALL") {
@@ -106,7 +104,6 @@ export default Reflux.createStore({
         }
       }
     }
-    console.log(filteredData);
     var ageBracketFiltered = [];
     for (var i = 0; i < filteredData.length; i++) {
       var row = filteredData[i];
@@ -123,10 +120,7 @@ export default Reflux.createStore({
         leagueFiltered = leagueFiltered.concat([row]);
       }
     }
-    console.log(leagueFiltered);
-    console.log('setting visible scores')
     this._visibleScores = leagueFiltered
-    console.log(this._visibleScores);
     this.emit();
   },
 
@@ -135,14 +129,28 @@ export default Reflux.createStore({
   },
 
   selectLeague(league) {
-    // TODO: update proper league and agebracket based on button press.
-    this._league = "USAU";
-    this._ageBracket = "COLLEGE";
+    l = league.toUpperCase();
+    if (l === "CLUB") {
+      this._league = "USAU";
+      this._ageBracket = "CLUB";
+    }
+    if (l === "COLLEGE") {
+      this._league = "USAU";
+      this._ageBracket = "COLLEGE";
+    }
+    if (l === "AUDL") {
+      this._league = "AUDL";
+      this._ageBracket = "NO_RESTRICTION";
+    }
+    if (l === "MLU") {
+      this._league = "MLU";
+      this._ageBracket = "NO_RESTRICTION";
+    }
     this._updateVisibleScores();
   },
 
   selectDivision(division) {
-    this._division = division;
+    this._division = division.toUpperCase();
     this._updateVisibleScores();
   },
 });
