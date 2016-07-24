@@ -100,7 +100,7 @@ var GamesComponent = React.createClass({
   renderLoadingView() {
     return (
       <View style={styles.loadContainer}>
-        <Text> Loading games... </Text>
+        <Text> No matching games.</Text>
       </View>
     );
   },
