@@ -48,7 +48,6 @@ export default Reflux.createStore({
       .done();
   },
 
-
   _fetchMockScores() {
     console.log('fetching mock data')
     this._allData = [

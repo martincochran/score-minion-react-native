@@ -9,7 +9,6 @@ import Reflux from 'reflux';
 import scores from './../stores/scores';
 
 import React, {
-  Component,
   ListView,
   StyleSheet,
   Text,

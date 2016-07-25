@@ -6,16 +6,19 @@ import React, {
 } from 'react-native';
 
 import TournamentComponent from './tournaments';
-
 import GamesComponent from './game';
+
+import {GoHome, GoBack, RenderScene} from './../components/actions';
 
 class NavComponent extends Component {
 
   popToTop() {
+    GoHome();
     this.refs.navigator.popToTop();
   }
 
   pop() {
+    GoBack();
     this.refs.navigator.pop();
   }
   
@@ -36,8 +39,7 @@ class NavComponent extends Component {
           name: 'Tournaments',
         }}
         renderScene={(route, navigator) => {
-          var numRoutes = this.numRoutes();
-          var enabled = (numRoutes >= 2);
+          RenderScene(this.numRoutes());
           if (route.name == 'Tournaments') {
             return (<TournamentComponent name={route.name} navigator={navigator} />);
           } else {

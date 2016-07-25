@@ -1,6 +1,6 @@
 'use strict';
 
-const BackButton = require('./back_button')
+import BackButton from './back_button';
 
 import React, {
   Component,

@@ -14,8 +14,10 @@ AppRegistry.registerComponent('AwesomeProject', () => MainComponent);
 
 /**
  * TODO:
- *  1. Hide back button on home screen.
- *  2. Go directly to games for MLU & AUDL & grey out division selection.
- *  3. Async / local storage for game data.
- *  4. Determine sorting of club / college / mlu / audl by API query.
+ *  1. Go directly to games for MLU & AUDL & grey out division selection.
+ *    a. Consider greying out league select in game view.
+ *  2. Async / local storage for game data.
+ *  3. Determine sorting of club / college / mlu / audl by API query.
+ *  4. Hook up to real API.
+ *    a. Pull down to refresh scores.
  */

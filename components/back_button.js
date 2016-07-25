@@ -1,32 +1,38 @@
+'use strict';
+import Reflux from 'reflux';
+
+import nav from './../stores/nav';
+
 import React, {
-  Component,
   StyleSheet,
   Text,
   TouchableHighlight,
   View,
 } from 'react-native';
 
+var BackButton = React.createClass({
+  displayName: 'BackButton',
 
-class BackButton extends Component {
-  constructor(props) {
-    super(props);
-  }
+  mixins: [Reflux.connect(nav, 'index')],
+
+  componentDidMount() {
+    nav.emit();
+  },
 
   render() {
-    // TODO: handle this appropriately once reflux is working.
-    if (true) {
+    if (this.state.index < 2) {
       return (
         <View style={styles.visible}>
-          <TouchableHighlight onPress={() => this.props.onPress()}>
-            <Text style={styles.button}>Back</Text>
-          </TouchableHighlight>
         </View>);
     }
     return (
       <View style={styles.visible}>
+        <TouchableHighlight onPress={() => this.props.onPress()}>
+          <Text style={styles.button}>Back</Text>
+        </TouchableHighlight>
       </View>);
-  }
-}
+  },
+});
 
 var styles = StyleSheet.create({
   invisible: {

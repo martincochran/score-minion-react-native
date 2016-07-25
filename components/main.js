@@ -36,7 +36,6 @@ class MainComponent extends Component {
         <View style={styles.mainView}>
           <Header ref='header'
             ref='header'
-            isHome={() => this.numRoutes() == 0}
             onClickBack={() => this.goBack()}
             onClickIcon={() => this.goHome()}
             numRoutes={() => this.numRoutes()}
