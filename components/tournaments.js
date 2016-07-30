@@ -10,6 +10,7 @@ import scores from './../stores/scores';
 
 import React, {
   ListView,
+  RefreshControl,
   StyleSheet,
   Text,
   View,
@@ -37,6 +38,12 @@ var TournamentComponent = React.createClass({
     scores.emit();
   },
 
+  refreshGames() {
+    this.setState({refreshing: true});
+    scores.fetchScores().done();
+    this.setState({refreshing: false});
+  },
+
   render() {
     if (!this.state.tournaments || this.state.tournaments.length === 0) {
       console.log('still no tournaments loaded')
@@ -46,6 +53,12 @@ var TournamentComponent = React.createClass({
     return (
       <View>
         <ListView
+          refreshControl={
+            <RefreshControl
+              refreshing={this.state.refreshing}
+              onRefresh={() => this.refreshGames()}
+            />
+          }
           dataSource={this.state.dataSource.cloneWithRows(this.state.tournaments)}
           renderRow={(tournament) => this.renderTournament(tournament)}
           navigator={this.props.navigator}

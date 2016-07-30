@@ -19,11 +19,12 @@ export default Reflux.createStore({
     this.listenTo(SelectDivision, (div) => this.selectDivision(div));
   },
 
-  // Loads the scores to the local storage.
+  // Loads the scores from the local storage then queues up a refresh from the
+  // API.
   async _loadScores() {
     console.log('No matching games')
     // TODO: load from local storage.
-    this._fetchScores();
+    this.fetchScores();
   },
 
   // Writes the scores to the local storage.
@@ -31,7 +32,7 @@ export default Reflux.createStore({
   },
 
   // Fetches the scores from the API.
-  async _fetchScores() {
+  async fetchScores() {
     // TODO: fetch from API instead.
     this._fetchMockScores();
     //this._fetchApiScores();

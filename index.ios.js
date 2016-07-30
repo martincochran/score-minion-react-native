@@ -19,5 +19,4 @@ AppRegistry.registerComponent('AwesomeProject', () => MainComponent);
  *  2. Async / local storage for game data.
  *  3. Determine sorting of club / college / mlu / audl by API query.
  *  4. Hook up to real API.
- *    a. Pull down to refresh scores.
  */

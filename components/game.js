@@ -13,6 +13,7 @@ import React, {
   Component,
   Image,
   ListView,
+  RefreshControl,
   StyleSheet,
   Text,
   TouchableHighlight,
@@ -34,6 +35,12 @@ var GamesComponent = React.createClass({
 
   componentDidMount() {
     scores.emit();
+  },
+
+  refreshGames() {
+    this.setState({refreshing: true});
+    scores.fetchScores().done();
+    this.setState({refreshing: false});
   },
 
   // TODO: move data to tournament json blob and change render function below to use that data.
@@ -92,6 +99,12 @@ var GamesComponent = React.createClass({
             this.fetchMockData())}
           renderRow={(game) => this.renderGame(game)}
           style={styles.listView}
+          refreshControl={
+            <RefreshControl
+              refreshing={this.state.refreshing}
+              onRefresh={() => this.refreshGames()}
+            />
+          }
         />
       </View>
     );
