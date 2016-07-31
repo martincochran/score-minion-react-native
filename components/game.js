@@ -43,60 +43,30 @@ var GamesComponent = React.createClass({
     this.setState({refreshing: false});
   },
 
-  // TODO: move data to tournament json blob and change render function below to use that data.
-  fetchMockData() {
-    var allData = [
-        {
-          name: 'game 1',
-          last_update_source: {update_time_utc_str: 'today'},
-          teams: [
-            { score_reporter_account: {name: 'team 1'} },
-            { score_reporter_account: {name: 'team 2'} },
-          ],
-          scores: [1, 2],
-          division: "OPEN",
-          age_bracket: "COLLEGE",
-        },
-        {
-          name: 'game 2',
-          last_update_source: {update_time_utc_str: 'yesterday'},
-          teams: [
-            { score_reporter_account: {name: 'team 3'} },
-            { score_reporter_account: {name: 'team 4'} },
-          ],
-          scores: [3, 4],
-          division: "WOMEN",
-          age_bracket: "COLLEGE",
-        },
-        {
-          name: 'game 3',
-          last_update_source: {update_time_utc_str: 'yesterday'},
-          teams: [
-            { score_reporter_account: {name: 'team 5'} },
-            { score_reporter_account: {name: 'team 6'} },
-          ],
-          scores: [5, 6],
-          division: "MIXED",
-          age_bracket: "CLUB",
-        },
-      ];
-    return allData;
+  getGamesForTournament() {
+    if (!this.state.tournaments) {
+      return [];
+    }
+    var tourneys = this.state.tournaments;
+    for (var i = 0; i < tourneys.length; i++) {
+      if (tourneys[i].id_str === this.props.tournament.id_str) {
+        return tourneys[i].filteredGames;
+      }
+    }
+    return [];
   },
 
   render() {
-    if (!this.state.tournaments || this.state.tournaments.length === 0) {
+    if (this.getGamesForTournament().length === 0) {
       return this.renderLoadingView();
     }
 
-    // ListView contents should look more like the following:
-    //      dataSource={this.state.dataSource.cloneWithRows(
-    //        this.state.tournaments[this.props.tournament])}
     return (
       <View style={styles.outerContainer}>
         <TournamentCell tournament={this.props.tournament}/>
         <ListView
           dataSource={this.state.dataSource.cloneWithRows(
-            this.fetchMockData())}
+            this.getGamesForTournament())}
           renderRow={(game) => this.renderGame(game)}
           style={styles.listView}
           refreshControl={

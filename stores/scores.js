@@ -12,7 +12,7 @@ var REQUEST_URL = API_URL + PARAMS;
 export default Reflux.createStore({
   init() {
     this._division = "ALL";
-    this._ageBracket = "CLUB";
+    this._ageBracket = "NO_RESTRICTION";
     this._league = "USAU";
     this._loadScores().done();
     this.listenTo(SelectLeague, (league) => this.selectLeague(league));
@@ -57,12 +57,55 @@ export default Reflux.createStore({
             "name": "Round Stone 2016",
             "id_str": "Round-Stone-2016",
             "image_url_https": "file:///Users/martincochran/Pictures/thumb_IMG_1069_1024.jpg",
-            // TODO: for each (division, age_bracket) pair include a sub-tournament object
-            // that has a list of games. Then we just use one API call to fetch everything.
             "divisions": ["OPEN", "WOMEN"],
-            "age_brackets": ["COLLEGE", "CLUB"],
+            "age_brackets": ["COLLEGE", "NO_RESTRICTION"],
             "league": "USAU",
             "dates": "April 16th-17th",
+            "games": [{
+                name: 'game 1',
+                last_update_source: {update_time_utc_str: 'today'},
+                teams: [
+                  { score_reporter_account: {name: 'open college team A'} },
+                  { score_reporter_account: {name: 'open college team B'} },
+                ],
+                scores: [1, 2],
+                division: "OPEN",
+                age_bracket: "COLLEGE",
+              },
+              {
+                name: 'game 2',
+                last_update_source: {update_time_utc_str: 'yesterday'},
+                teams: [
+                  { score_reporter_account: {name: 'womens college team A'} },
+                  { score_reporter_account: {name: 'womens college team B'} },
+                ],
+                scores: [3, 4],
+                division: "WOMEN",
+                age_bracket: "COLLEGE",
+              },
+              {
+                name: 'game 3',
+                last_update_source: {update_time_utc_str: 'yesterday'},
+                teams: [
+                  { score_reporter_account: {name: 'womens club team A'} },
+                  { score_reporter_account: {name: 'womens club team B'} },
+                ],
+                scores: [5, 6],
+                division: "WOMEN",
+                age_bracket: "NO_RESTRICTION",
+              },
+              {
+                name: 'game 4',
+                last_update_source: {update_time_utc_str: 'yesterday'},
+                teams: [
+                  { score_reporter_account: {name: 'open club team A'} },
+                  { score_reporter_account: {name: 'open club team B'} },
+                ],
+                scores: [7, 8],
+                division: "OPEN",
+                age_bracket: "NO_RESTRICTION",
+              },
+            ],
           },
           {
             "url": "https://play.usaultimate.org/events/TCT-Pro-Elite-Challenge-2016-Colorado-Cup",
@@ -70,19 +113,120 @@ export default Reflux.createStore({
             "id_str": "TCT-Pro-Elite-Challenge-2016-Colorado-Cup",
             "image_url_https": "file:///Users/martincochran/Pictures/thumb_IMG_1069_1024.jpg",
             "divisions": ["MIXED", "WOMEN"],
-            "age_brackets": ["NO_RESTRICTION"],
-            "league": "AUDL",
+            "age_brackets": ["NO_RESTRICTION", "COLLEGE"],
+            "league": "USAU",
             "dates": "April 9th-10th",
+            "games": [{
+                name: 'game 1',
+                last_update_source: {update_time_utc_str: 'today'},
+                teams: [
+                  { score_reporter_account: {name: 'mixed college team A'} },
+                  { score_reporter_account: {name: 'mixed college team B'} },
+                ],
+                scores: [1, 2],
+                division: "MIXED",
+                age_bracket: "COLLEGE",
+              },
+              {
+                name: 'game 2',
+                last_update_source: {update_time_utc_str: 'yesterday'},
+                teams: [
+                  { score_reporter_account: {name: 'womens college team X'} },
+                  { score_reporter_account: {name: 'womens college team Y'} },
+                ],
+                scores: [3, 4],
+                division: "WOMEN",
+                age_bracket: "COLLEGE",
+              },
+              {
+                name: 'game 3',
+                last_update_source: {update_time_utc_str: 'yesterday'},
+                teams: [
+                  { score_reporter_account: {name: 'womens club team W'} },
+                  { score_reporter_account: {name: 'womens club team V'} },
+                ],
+                scores: [5, 6],
+                division: "WOMEN",
+                age_bracket: "NO_RESTRICTION",
+              },
+              {
+                name: 'game 4',
+                last_update_source: {update_time_utc_str: 'yesterday'},
+                teams: [
+                  { score_reporter_account: {name: 'mixed club team A'} },
+                  { score_reporter_account: {name: 'mixed club team B'} },
+                ],
+                scores: [7, 8],
+                division: "MIXED",
+                age_bracket: "NO_RESTRICTION",
+              },
+            ],
           },
           {
             "url": "https://play.usaultimate.org/events/CUC-Ridgefield-High-School-Club-Practices",
             "name": "CUC Ridgefield High School Club Practices",
             "id_str": "CUC-Ridgefield-High-School-Club-Practices",
             "image_url_https": "file:///Users/martincochran/Pictures/thumb_IMG_1069_1024.jpg",
-            "divisions": ["MIXED", "OPEN"],
+            "divisions": ["OPEN"],
             "age_brackets": ["NO_RESTRICTION"],
             "league": "MLU",
             "dates": "April 9th",
+            "games": [{
+                name: 'game 1',
+                last_update_source: {update_time_utc_str: 'today'},
+                teams: [
+                  { score_reporter_account: {name: 'mlu team A'} },
+                  { score_reporter_account: {name: 'mlu team B'} },
+                ],
+                scores: [1, 2],
+                division: "OPEN",
+                age_bracket: "NO_RESTRICTION",
+              },
+              {
+                name: 'game 4',
+                last_update_source: {update_time_utc_str: 'yesterday'},
+                teams: [
+                  { score_reporter_account: {name: 'mlu team C'} },
+                  { score_reporter_account: {name: 'mlu team D'} },
+                ],
+                scores: [7, 8],
+                division: "OPEN",
+                age_bracket: "NO_RESTRICTION",
+              },
+            ],
+          },
+          {
+            "url": "https://play.usaultimate.org/events/TCT-Pro-Elite-Challenge-2016-Colorado-Cup",
+            "name": "AUDL games - week of blah",
+            "id_str": "AUDL",
+            "image_url_https": "file:///Users/martincochran/Pictures/thumb_IMG_1069_1024.jpg",
+            "divisions": ["OPEN"],
+            "age_brackets": ["NO_RESTRICTION"],
+            "league": "AUDL",
+            "dates": "April 9th-10th",
+            "games": [{
+                name: 'game 1',
+                last_update_source: {update_time_utc_str: 'today'},
+                teams: [
+                  { score_reporter_account: {name: 'audl team A'} },
+                  { score_reporter_account: {name: 'audl team C'} },
+                ],
+                scores: [1, 2],
+                division: "OPEN",
+                age_bracket: "NO_RESTRICTION",
+              },
+              {
+                name: 'game 2',
+                last_update_source: {update_time_utc_str: 'yesterday'},
+                teams: [
+                  { score_reporter_account: {name: 'audl team C'} },
+                  { score_reporter_account: {name: 'audl team D'} },
+                ],
+                scores: [3, 4],
+                division: "OPEN",
+                age_bracket: "NO_RESTRICTION",
+              },
+            ],
           },
         ];
   },
@@ -120,6 +264,21 @@ export default Reflux.createStore({
         leagueFiltered = leagueFiltered.concat([row]);
       }
     }
+    // Now go through each tournament and filter the games that don't match.
+    for (var i = 0; i < leagueFiltered.length; i++) {
+      var games = leagueFiltered[i].games;
+      filteredGames = [];
+      for (var j = 0; j < games.length; j++) {
+        var g = games[j];
+        if (this._division != "ALL" && g.division != this._division) {
+          continue
+        }
+        if (g.age_bracket === this._ageBracket) {
+          filteredGames = filteredGames.concat([g]);
+        }
+      }
+      leagueFiltered[i].filteredGames = filteredGames;
+    }
     this._visibleScores = leagueFiltered
     this.emit();
   },
@@ -132,7 +291,7 @@ export default Reflux.createStore({
     l = league.toUpperCase();
     if (l === "CLUB") {
       this._league = "USAU";
-      this._ageBracket = "CLUB";
+      this._ageBracket = "NO_RESTRICTION";
     }
     if (l === "COLLEGE") {
       this._league = "USAU";
