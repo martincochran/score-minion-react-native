@@ -5,7 +5,7 @@ import React from 'react-native';
 var {AsyncStorage} = React;
 
 var API_URL = 'https://omega-bearing-780.appspot.com/_ah/api/scores/v1/tournaments';
-var NUM_TOURNEYS = 5;
+var NUM_TOURNEYS = 10;
 var PARAMS = '?count=' + NUM_TOURNEYS;
 var REQUEST_URL = API_URL + PARAMS;
 
@@ -24,7 +24,8 @@ export default Reflux.createStore({
   async _loadScores() {
     console.log('No matching games')
     // TODO: load from local storage.
-    this.fetchScores();
+    this._allData = [];
+    this.fetchScores().done();
   },
 
   // Writes the scores to the local storage.
@@ -33,9 +34,8 @@ export default Reflux.createStore({
 
   // Fetches the scores from the API.
   async fetchScores() {
-    // TODO: fetch from API instead.
-    this._fetchMockScores();
-    //this._fetchApiScores();
+    //this._fetchMockScores();
+    this._fetchApiScores();
     this._writeScores();
     this._updateVisibleScores();
   },
@@ -45,6 +45,8 @@ export default Reflux.createStore({
       .then((response) => response.json())
       .then((responseData) => {
         this._allData = responseData.tournaments;
+        this._writeScores();
+        this._updateVisibleScores();
       })
       .done();
   },
@@ -57,10 +59,11 @@ export default Reflux.createStore({
             "name": "Round Stone 2016",
             "id_str": "Round-Stone-2016",
             "image_url_https": "file:///Users/martincochran/Pictures/thumb_IMG_1069_1024.jpg",
-            "divisions": ["OPEN", "WOMEN"],
+            "divisions": ["OPEN", "WOMENS"],
             "age_brackets": ["COLLEGE", "NO_RESTRICTION"],
             "league": "USAU",
-            "dates": "April 16th-17th",
+            "start_date": "April 9th",
+            "end_date": "April 9th",
             "games": [{
                 name: 'game 1',
                 last_update_source: {update_time_utc_str: 'today'},
@@ -71,6 +74,7 @@ export default Reflux.createStore({
                 scores: [1, 2],
                 division: "OPEN",
                 age_bracket: "COLLEGE",
+                game_status: "UNKNOWN",
               },
               {
                 name: 'game 2',
@@ -80,8 +84,9 @@ export default Reflux.createStore({
                   { score_reporter_account: {name: 'womens college team B'} },
                 ],
                 scores: [3, 4],
-                division: "WOMEN",
+                division: "WOMENS",
                 age_bracket: "COLLEGE",
+                game_status: "UNKNOWN",
               },
               {
                 name: 'game 3',
@@ -91,8 +96,9 @@ export default Reflux.createStore({
                   { score_reporter_account: {name: 'womens club team B'} },
                 ],
                 scores: [5, 6],
-                division: "WOMEN",
+                division: "WOMENS",
                 age_bracket: "NO_RESTRICTION",
+                game_status: "UNKNOWN",
               },
               {
                 name: 'game 4',
@@ -104,6 +110,7 @@ export default Reflux.createStore({
                 scores: [7, 8],
                 division: "OPEN",
                 age_bracket: "NO_RESTRICTION",
+                game_status: "FINAL",
               },
             ],
           },
@@ -112,10 +119,11 @@ export default Reflux.createStore({
             "name": "TCT Pro Elite Challenge 2016 Colorado Cup",
             "id_str": "TCT-Pro-Elite-Challenge-2016-Colorado-Cup",
             "image_url_https": "file:///Users/martincochran/Pictures/thumb_IMG_1069_1024.jpg",
-            "divisions": ["MIXED", "WOMEN"],
+            "divisions": ["MIXED", "WOMENS"],
             "age_brackets": ["NO_RESTRICTION", "COLLEGE"],
             "league": "USAU",
-            "dates": "April 9th-10th",
+            "start_date": "April 9th",
+            "end_date": "April 9th",
             "games": [{
                 name: 'game 1',
                 last_update_source: {update_time_utc_str: 'today'},
@@ -126,6 +134,7 @@ export default Reflux.createStore({
                 scores: [1, 2],
                 division: "MIXED",
                 age_bracket: "COLLEGE",
+                game_status: "FINAL",
               },
               {
                 name: 'game 2',
@@ -135,8 +144,9 @@ export default Reflux.createStore({
                   { score_reporter_account: {name: 'womens college team Y'} },
                 ],
                 scores: [3, 4],
-                division: "WOMEN",
+                division: "WOMENS",
                 age_bracket: "COLLEGE",
+                game_status: "FINAL",
               },
               {
                 name: 'game 3',
@@ -146,8 +156,9 @@ export default Reflux.createStore({
                   { score_reporter_account: {name: 'womens club team V'} },
                 ],
                 scores: [5, 6],
-                division: "WOMEN",
+                division: "WOMENS",
                 age_bracket: "NO_RESTRICTION",
+                game_status: "UNKNOWN",
               },
               {
                 name: 'game 4',
@@ -159,6 +170,7 @@ export default Reflux.createStore({
                 scores: [7, 8],
                 division: "MIXED",
                 age_bracket: "NO_RESTRICTION",
+                game_status: "UNKNOWN",
               },
             ],
           },
@@ -166,11 +178,15 @@ export default Reflux.createStore({
             "url": "https://play.usaultimate.org/events/CUC-Ridgefield-High-School-Club-Practices",
             "name": "CUC Ridgefield High School Club Practices",
             "id_str": "CUC-Ridgefield-High-School-Club-Practices",
+            // TODO: handle empty - use USAU default of 
+            // https://play.usaultimate.org/assets/1/15/EventLogoDimension/USAUSanctioned.jpg
             "image_url_https": "file:///Users/martincochran/Pictures/thumb_IMG_1069_1024.jpg",
             "divisions": ["OPEN"],
             "age_brackets": ["NO_RESTRICTION"],
             "league": "MLU",
-            "dates": "April 9th",
+            // TODO: parse the format ("today and yesterday", "today")
+            "start_date": "April 9th",
+            "end_date": "April 9th",
             "games": [{
                 name: 'game 1',
                 last_update_source: {update_time_utc_str: 'today'},
@@ -181,6 +197,7 @@ export default Reflux.createStore({
                 scores: [1, 2],
                 division: "OPEN",
                 age_bracket: "NO_RESTRICTION",
+                game_status: "UNKNOWN",
               },
               {
                 name: 'game 4',
@@ -189,9 +206,10 @@ export default Reflux.createStore({
                   { score_reporter_account: {name: 'mlu team C'} },
                   { score_reporter_account: {name: 'mlu team D'} },
                 ],
-                scores: [7, 8],
+                scores: ["7", "8"],
                 division: "OPEN",
                 age_bracket: "NO_RESTRICTION",
+                game_status: "UNKNOWN",
               },
             ],
           },
@@ -203,7 +221,8 @@ export default Reflux.createStore({
             "divisions": ["OPEN"],
             "age_brackets": ["NO_RESTRICTION"],
             "league": "AUDL",
-            "dates": "April 9th-10th",
+            "start_date": "April 9th",
+            "end_date": "April 9th",
             "games": [{
                 name: 'game 1',
                 last_update_source: {update_time_utc_str: 'today'},
@@ -214,6 +233,7 @@ export default Reflux.createStore({
                 scores: [1, 2],
                 division: "OPEN",
                 age_bracket: "NO_RESTRICTION",
+                game_status: "UNKNOWN",
               },
               {
                 name: 'game 2',
@@ -225,6 +245,7 @@ export default Reflux.createStore({
                 scores: [3, 4],
                 division: "OPEN",
                 age_bracket: "NO_RESTRICTION",
+                game_status: "FINAL",
               },
             ],
           },
@@ -310,6 +331,12 @@ export default Reflux.createStore({
 
   selectDivision(division) {
     this._division = division.toUpperCase();
+    if (this._division === "WOMEN") {
+      this._division = "WOMENS";
+    }
+    if (this._division === "MEN") {
+      this._division = "OPEN";
+    }
     this._updateVisibleScores();
   },
 });

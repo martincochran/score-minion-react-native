@@ -21,7 +21,7 @@ class TournamentCell extends Component {
       <View style={styles.outerContainer}>
         <View style={styles.thumbnailBorder}>
           <Image
-            source={{uri: this.props.tournament.image_url_https}}
+            source={{uri: this.getTourneyImage()}}
             style={styles.thumbnail}
           />
         </View>
@@ -35,7 +35,9 @@ class TournamentCell extends Component {
             <TouchableHighlight onPress={() => Linking.openURL(this.props.tournament.url).catch(err => console.error('An error occurred', err))}>
               <Text style={styles.link}>{'Score reporter'}</Text>
             </TouchableHighlight>
-            <Text style={styles.date}>{this.props.tournament.dates}</Text>
+            <Text style={styles.date}>{
+              this.formatDateString()
+            }</Text>
           </View>
         </View>
       </View>
@@ -50,6 +52,21 @@ class TournamentCell extends Component {
       name: this.props.tournament.name,
       passProps: {tournament: this.props.tournament},
     });
+  }
+
+  getTourneyImage() {
+    if (this.props.tournament.image_url_https) {
+      return this.props.tournament.image_url_https;
+    }
+    return "https://play.usaultimate.org/assets/1/15/EventLogoDimension/USAUSanctioned.jpg";
+  }
+
+  // TODO: come up with better-formatted date string. eg 'this weekend'.
+  // TODO: See related TODO in game.
+  formatDateString() {
+    var start = this.props.tournament.start_date;
+    var end = this.props.tournament.end_date;
+    return start.substring(4, 10) + " - " + end.substring(4, 10);
   }
 }
 

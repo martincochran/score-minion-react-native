@@ -92,7 +92,7 @@ var GamesComponent = React.createClass({
     return (
       <View style={styles.outerContainer}>
         <View style={styles.topContainer}>
-          <Text style={styles.title}>{game.name + " - " + game.last_update_source.update_time_utc_str}</Text>
+          <Text style={styles.title}>{this.getTitle(game.name, game.last_update_source.update_time_utc_str)}</Text>
           <Text style={styles.gameStatus}>{game.game_status}</Text>
         </View>
         <View style={styles.container}>
@@ -119,18 +119,30 @@ var GamesComponent = React.createClass({
       </View>
     );
   },
+
+  // TODO: format the date better. See related TODO in tournament_cell.
+  getTitle(name, update_time) {
+    return name + " - " + update_time.substring(4, 10);
+  }
 });
 
+// TODO: come up with a cooler default image.
 function getImage(team) {
-  return 'file:///Users/martincochran/Pictures/IMG_1073.JPG'
-  /*
+  var dUrl = "https://play.usaultimate.org/assets/EventPictures/logo.png";
+  var url = "";
   if (team.score_reporter_account) {
-    return team.score_reporter_account.profile_image_url_https;
+    url = team.score_reporter_account.profile_image_url_https;
   } else {
-    return team.twitter_account.profile_image_url_https;
+    if (team.twitter_account) {
+      url = team.twitter_account.profile_image_url_https;
+    }
   }
-  */
+  if (url) {
+    return url;
+  }
+  return dUrl;
 }
+
 
 function getTeamName(team) {
   if (team.score_reporter_account) {
@@ -211,8 +223,9 @@ var styles = StyleSheet.create({
     textAlign: 'left',
   },
   gameStatus: {
+    paddingRight: 10,
     fontSize: 10,
-    textAlign: 'right',
+    textAlign: 'left',
   },
   dash: {
     flex: 3,
