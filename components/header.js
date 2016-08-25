@@ -20,9 +20,7 @@ class Header extends Component {
   render() {
     return (
       <View style={styles.outerContainer}>
-        <BackButton ref='backbutton' onPress={() => this.props.onClickBack()}
-          numRoutes={() => this.props.numRoutes()}
-        />
+        <BackButton onPress={() => this.props.onClickBack()}/>
         <Text style={styles.title}>{'score minion'}</Text>
         <TouchableHighlight onPress={() => this.props.onClickIcon()}>
           <Image

@@ -34,8 +34,8 @@ export default Reflux.createStore({
 
   // Fetches the scores from the API.
   async fetchScores() {
-    //this._fetchMockScores();
-    this._fetchApiScores();
+    this._fetchMockScores();
+    //this._fetchApiScores();
     this._writeScores();
     this._updateVisibleScores();
   },
@@ -62,8 +62,8 @@ export default Reflux.createStore({
             "divisions": ["OPEN", "WOMENS"],
             "age_brackets": ["COLLEGE", "NO_RESTRICTION"],
             "league": "USAU",
-            "start_date": "April 9th",
-            "end_date": "April 9th",
+            "start_date": "Sun Jun 14 00:00:00 2015",
+            "end_date": "Mon Jun 15 00:00:00 2015",
             "games": [{
                 name: 'game 1',
                 last_update_source: {update_time_utc_str: 'today'},
@@ -71,7 +71,7 @@ export default Reflux.createStore({
                   { score_reporter_account: {name: 'open college team A'} },
                   { score_reporter_account: {name: 'open college team B'} },
                 ],
-                scores: [1, 2],
+                scores: [12, 2],
                 division: "OPEN",
                 age_bracket: "COLLEGE",
                 game_status: "UNKNOWN",
@@ -83,7 +83,7 @@ export default Reflux.createStore({
                   { score_reporter_account: {name: 'womens college team A'} },
                   { score_reporter_account: {name: 'womens college team B'} },
                 ],
-                scores: [3, 4],
+                scores: [3, 14],
                 division: "WOMENS",
                 age_bracket: "COLLEGE",
                 game_status: "UNKNOWN",
@@ -95,7 +95,7 @@ export default Reflux.createStore({
                   { score_reporter_account: {name: 'womens club team A'} },
                   { score_reporter_account: {name: 'womens club team B'} },
                 ],
-                scores: [5, 6],
+                scores: [15, 6],
                 division: "WOMENS",
                 age_bracket: "NO_RESTRICTION",
                 game_status: "UNKNOWN",
@@ -112,6 +112,31 @@ export default Reflux.createStore({
                 age_bracket: "NO_RESTRICTION",
                 game_status: "FINAL",
               },
+              {
+                name: 'game 5',
+                last_update_source: {update_time_utc_str: 'yesterday'},
+                teams: [
+                  { score_reporter_account: {name: 'womens club team C'} },
+                  { score_reporter_account: {name: 'womens club team D'} },
+                ],
+                scores: [15, 16],
+                division: "WOMENS",
+                age_bracket: "NO_RESTRICTION",
+                game_status: "UNKNOWN",
+              },
+              {
+                name: 'game 6',
+                last_update_source: {update_time_utc_str: 'yesterday'},
+                teams: [
+                  { score_reporter_account: {name: 'open club team X'} },
+                  { score_reporter_account: {name: 'open club team Y'} },
+                ],
+                scores: [7, 10],
+                division: "OPEN",
+                age_bracket: "NO_RESTRICTION",
+                game_status: "FINAL",
+              },
+
             ],
           },
           {
@@ -122,8 +147,8 @@ export default Reflux.createStore({
             "divisions": ["MIXED", "WOMENS"],
             "age_brackets": ["NO_RESTRICTION", "COLLEGE"],
             "league": "USAU",
-            "start_date": "April 9th",
-            "end_date": "April 9th",
+            "start_date": "Sun Jun 14 00:00:00 2015",
+            "end_date": "Mon Jun 15 00:00:00 2015",
             "games": [{
                 name: 'game 1',
                 last_update_source: {update_time_utc_str: 'today'},
@@ -178,15 +203,13 @@ export default Reflux.createStore({
             "url": "https://play.usaultimate.org/events/CUC-Ridgefield-High-School-Club-Practices",
             "name": "CUC Ridgefield High School Club Practices",
             "id_str": "CUC-Ridgefield-High-School-Club-Practices",
-            // TODO: handle empty - use USAU default of 
-            // https://play.usaultimate.org/assets/1/15/EventLogoDimension/USAUSanctioned.jpg
             "image_url_https": "file:///Users/martincochran/Pictures/thumb_IMG_1069_1024.jpg",
             "divisions": ["OPEN"],
             "age_brackets": ["NO_RESTRICTION"],
             "league": "MLU",
             // TODO: parse the format ("today and yesterday", "today")
-            "start_date": "April 9th",
-            "end_date": "April 9th",
+            "start_date": "Sun Jun 14 00:00:00 2015",
+            "end_date": "Mon Jun 15 00:00:00 2015",
             "games": [{
                 name: 'game 1',
                 last_update_source: {update_time_utc_str: 'today'},
@@ -221,8 +244,8 @@ export default Reflux.createStore({
             "divisions": ["OPEN"],
             "age_brackets": ["NO_RESTRICTION"],
             "league": "AUDL",
-            "start_date": "April 9th",
-            "end_date": "April 9th",
+            "start_date": "Sun Jun 14 00:00:00 2015",
+            "end_date": "Mon Jun 15 00:00:00 2015",
             "games": [{
                 name: 'game 1',
                 last_update_source: {update_time_utc_str: 'today'},
@@ -246,6 +269,78 @@ export default Reflux.createStore({
                 division: "OPEN",
                 age_bracket: "NO_RESTRICTION",
                 game_status: "FINAL",
+              },
+            ],
+          },
+          {
+            "url": "https://play.usaultimate.org/events/Round-Stone-2020",
+            "name": "Sharp Stone 2020",
+            "id_str": "Sharp-Stone-2020",
+            "image_url_https": "file:///Users/martincochran/Pictures/thumb_IMG_1069_1024.jpg",
+            "divisions": ["OPEN", "WOMENS"],
+            "age_brackets": ["COLLEGE", "NO_RESTRICTION"],
+            "league": "USAU",
+            "start_date": "Sun Jun 14 00:00:00 2015",
+            "end_date": "Mon Jun 15 00:00:00 2015",
+            "games": [{
+                name: 'game 1',
+                last_update_source: {update_time_utc_str: 'today'},
+                teams: [
+                  { score_reporter_account: {name: 'open college team A'} },
+                  { score_reporter_account: {name: 'open college team B'} },
+                ],
+                scores: [12, 2],
+                division: "OPEN",
+                age_bracket: "COLLEGE",
+                game_status: "UNKNOWN",
+              },
+            ],
+          },
+          {
+            "url": "https://play.usaultimate.org/events/Round-Stone-2023",
+            "name": "Square Stone 2023",
+            "id_str": "Square-Stone-2023",
+            "image_url_https": "file:///Users/martincochran/Pictures/thumb_IMG_1069_1024.jpg",
+            "divisions": ["OPEN", "WOMENS"],
+            "age_brackets": ["COLLEGE", "NO_RESTRICTION"],
+            "league": "USAU",
+            "start_date": "Sun Jun 14 00:00:00 2015",
+            "end_date": "Mon Jun 15 00:00:00 2015",
+            "games": [{
+                name: 'game 1',
+                last_update_source: {update_time_utc_str: 'today'},
+                teams: [
+                  { score_reporter_account: {name: 'open college team A'} },
+                  { score_reporter_account: {name: 'open college team B'} },
+                ],
+                scores: [12, 2],
+                division: "OPEN",
+                age_bracket: "COLLEGE",
+                game_status: "UNKNOWN",
+              },
+            ],
+          },
+          {
+            "url": "https://play.usaultimate.org/events/Round-Stone-2057",
+            "name": "Odd-Shaped Stone 2057",
+            "id_str": "Odd-Shaped-Stone-2057",
+            "image_url_https": "file:///Users/martincochran/Pictures/thumb_IMG_1069_1024.jpg",
+            "divisions": ["OPEN", "WOMENS"],
+            "age_brackets": ["COLLEGE", "NO_RESTRICTION"],
+            "league": "USAU",
+            "start_date": "Sun Jun 14 00:00:00 2015",
+            "end_date": "Mon Jun 15 00:00:00 2015",
+            "games": [{
+                name: 'game 1',
+                last_update_source: {update_time_utc_str: 'today'},
+                teams: [
+                  { score_reporter_account: {name: 'open college team A'} },
+                  { score_reporter_account: {name: 'open college team B'} },
+                ],
+                scores: [12, 2],
+                division: "OPEN",
+                age_bracket: "COLLEGE",
+                game_status: "UNKNOWN",
               },
             ],
           },

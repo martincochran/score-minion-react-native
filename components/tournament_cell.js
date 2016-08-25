@@ -27,8 +27,10 @@ class TournamentCell extends Component {
         </View>
         <View style={styles.tournamentInfoContainer}>
           <TouchableHighlight onPress={() => this.selectTournament(this.tournament)}>
-            <View>
-              <Text style={styles.title}>{this.props.tournament.name}</Text>
+            <View style={styles.titleContainer}>
+              <Text style={styles.title}>
+                {this.shortenName(this.props.tournament.name)}
+              </Text>
             </View>
           </TouchableHighlight>
           <View style={styles.tournamentDateContainer}>
@@ -59,6 +61,17 @@ class TournamentCell extends Component {
       return this.props.tournament.image_url_https;
     }
     return "https://play.usaultimate.org/assets/1/15/EventLogoDimension/USAUSanctioned.jpg";
+  }
+
+  // shortenName ensures the tournament name fits within the enclosing area
+  // on the smallest platform (iPhone 4s).
+  // TODO: dynamically size based on platform. Names look awkwardly truncated on
+  // iPhone 6s Plus.
+  shortenName(name) {
+    if (name.length > 32) {
+      return name.substring(0, 32) + "...";
+    }
+    return name;
   }
 
   // TODO: come up with better-formatted date string. eg 'this weekend'.
@@ -94,30 +107,39 @@ var styles = StyleSheet.create({
   },
   tournamentInfoContainer: {
     flex: 3,
-    flexDirection: 'column',
+    height: 70,
     backgroundColor: '#F5FCFF',
     justifyContent: 'center',
   },
   tournamentDateContainer: {
     backgroundColor: '#F5FCFF',
     paddingRight: 10,
+    paddingBottom: 2,
     flex: 2,
+    justifyContent: 'space-between',
     flexDirection: 'row',
     alignItems: 'flex-end',
   },
+  titleContainer: {
+    flex: 2,
+    height: 51,
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
   title: {
     flex: 2,
-    fontSize: 22,
+    fontSize: 21,
     textAlign: 'left',
   },
   link: {
     flex: 1,
     fontSize: 12,
     textAlign: 'left',
+    color: '#000FFF',
   },
   date: {
     flex: 1,
-    fontSize: 16,
+    fontSize: 14,
     textAlign: 'right',
   },
 });

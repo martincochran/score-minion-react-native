@@ -83,7 +83,7 @@ var GamesComponent = React.createClass({
   renderLoadingView() {
     return (
       <View style={styles.loadContainer}>
-        <Text> No matching games.</Text>
+        <Text> No matching games</Text>
       </View>
     );
   },
@@ -234,22 +234,23 @@ var styles = StyleSheet.create({
   },
   scoreLeft: {
     flex: 3,
-    fontSize: 35,
-    textAlign: 'left',
+    fontSize: 30,
+    textAlign: 'center',
     fontFamily: 'Avenir Heavy'
   },
   scoreRight: {
     flex: 3,
-    fontSize: 35,
-    textAlign: 'right',
+    fontSize: 30,
+    textAlign: 'center',
     fontFamily: 'Avenir Heavy'
   },
   teams: {
     fontSize: 10,
     textAlign: 'center',
   },
+  // TODO: see if there is a property to ensure photos don't get cropped. 
   thumbnail: {
-    width: 51,
+    width: 80,
     height: 40,
   },
   listView: {

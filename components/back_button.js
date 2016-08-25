@@ -26,11 +26,11 @@ var BackButton = React.createClass({
         </View>);
     }
     return (
-      <View style={styles.visible}>
-        <TouchableHighlight onPress={() => this.props.onPress()}>
+      <TouchableHighlight onPress={() => this.props.onPress()}>
+        <View style={styles.visible}>
           <Text style={styles.button}>Back</Text>
-        </TouchableHighlight>
-      </View>);
+        </View>
+      </TouchableHighlight>);
   },
 });
 

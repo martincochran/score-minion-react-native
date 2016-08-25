@@ -51,7 +51,7 @@ var TournamentComponent = React.createClass({
     }
 
     return (
-      <View>
+      <View style={styles.outerContainer}>
         <ListView
           refreshControl={
             <RefreshControl
@@ -72,7 +72,7 @@ var TournamentComponent = React.createClass({
     return (
       <View style={styles.loadContainer}>
         <Text>
-          No matching tournaments.
+          No matching tournaments
         </Text>
       </View>
     );
@@ -91,8 +91,12 @@ var styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
-  listView: {
+  outerContainer: {
     flex: 2,
+    flexDirection: 'column',
+  },
+  listView: {
+    flex: 3,
     backgroundColor: '#F5FCFF',
   },
 });

@@ -2,6 +2,7 @@
 
 const NavComponent = require('./nav')
 const Header = require('./header')
+const SmSegmentedControl = require('./sm_segmented_control')
 
 import React, {
   Component,
@@ -40,15 +41,7 @@ class MainComponent extends Component {
             onClickIcon={() => this.goHome()}
             numRoutes={() => this.numRoutes()}
             />
-          <SegmentedControlIOS
-            values={["Club", "College", "AUDL", "MLU"]}
-            selectedIndex={0}
-            enabled={true}
-            style={styles.divisionControlView}
-            // TODO: if AUDL / MLU is selected, force selection of division
-            // and grey out control.
-            onValueChange={(league) => SelectLeague(league)}
-          />
+          <SmSegmentedControl/>
           <NavComponent
             ref='navigator'
             style={styles.navView}
