@@ -130,11 +130,11 @@ var GamesComponent = React.createClass({
 function getImage(team) {
   var dUrl = "https://play.usaultimate.org/assets/EventPictures/logo.png";
   var url = "";
-  if (team.score_reporter_account) {
-    url = team.score_reporter_account.profile_image_url_https;
+  if (team.twitter_account) {
+    url = team.twitter_account.profile_image_url_https;
   } else {
-    if (team.twitter_account) {
-      url = team.twitter_account.profile_image_url_https;
+    if (team.score_reporter_account) {
+      url = team.score_reporter_account.profile_image_url_https;
     }
   }
   if (url) {
@@ -250,7 +250,7 @@ var styles = StyleSheet.create({
   },
   // TODO: see if there is a property to ensure photos don't get cropped. 
   thumbnail: {
-    width: 80,
+    width: 60,
     height: 40,
   },
   listView: {

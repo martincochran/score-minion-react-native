@@ -28,9 +28,7 @@ class TournamentCell extends Component {
         <View style={styles.tournamentInfoContainer}>
           <TouchableHighlight onPress={() => this.selectTournament(this.tournament)}>
             <View style={styles.titleContainer}>
-              <Text style={styles.title}>
-                {this.shortenName(this.props.tournament.name)}
-              </Text>
+              <Text style={styles.title}>{this.props.tournament.name}</Text>
             </View>
           </TouchableHighlight>
           <View style={styles.tournamentDateContainer}>
@@ -61,17 +59,6 @@ class TournamentCell extends Component {
       return this.props.tournament.image_url_https;
     }
     return "https://play.usaultimate.org/assets/1/15/EventLogoDimension/USAUSanctioned.jpg";
-  }
-
-  // shortenName ensures the tournament name fits within the enclosing area
-  // on the smallest platform (iPhone 4s).
-  // TODO: dynamically size based on platform. Names look awkwardly truncated on
-  // iPhone 6s Plus.
-  shortenName(name) {
-    if (name.length > 32) {
-      return name.substring(0, 32) + "...";
-    }
-    return name;
   }
 
   // TODO: come up with better-formatted date string. eg 'this weekend'.
@@ -127,7 +114,8 @@ var styles = StyleSheet.create({
     alignItems: 'center',
   },
   title: {
-    flex: 2,
+    flex: 1,
+    height: 51,
     fontSize: 21,
     textAlign: 'left',
   },

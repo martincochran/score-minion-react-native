@@ -3,6 +3,7 @@
 const NavComponent = require('./nav')
 const Header = require('./header')
 const SmSegmentedControl = require('./sm_segmented_control')
+const DivSegmentedControl = require('./div_segmented_control')
 
 import React, {
   Component,
@@ -14,10 +15,13 @@ import React, {
 } from 'react-native';
 
 import {SelectLeague, SelectDivision} from './../components/actions';
+import scores from './../stores/scores';
 
 class MainComponent extends Component {
 
   goHome() {
+    // TODO: show hover text saying loading new scores?
+    scores.fetchScores();
     this.refs.navigator.popToTop();
   }
 
@@ -39,20 +43,13 @@ class MainComponent extends Component {
             ref='header'
             onClickBack={() => this.goBack()}
             onClickIcon={() => this.goHome()}
-            numRoutes={() => this.numRoutes()}
             />
           <SmSegmentedControl/>
           <NavComponent
             ref='navigator'
             style={styles.navView}
           />
-          <SegmentedControlIOS
-            values={["All", "Women", "Men", "Mixed"]}
-            selectedIndex={0}
-            enabled={true}
-            style={styles.divisionControlView}
-            onValueChange={(div) => SelectDivision(div)}
-          />
+          <DivSegmentedControl/>
         </View>
     );
   }
