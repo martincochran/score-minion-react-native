@@ -247,6 +247,8 @@ var styles = StyleSheet.create({
   teams: {
     fontSize: 10,
     textAlign: 'center',
+    height: 14,
+    width: 120,
   },
   // TODO: see if there is a property to ensure photos don't get cropped. 
   thumbnail: {

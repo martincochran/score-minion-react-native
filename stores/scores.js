@@ -300,7 +300,7 @@ export default Reflux.createStore({
                 name: 'game 4',
                 last_update_source: {update_time_utc_str: 'yesterday'},
                 teams: [
-                  { score_reporter_account: {name: 'mixed club team A'} },
+                  { score_reporter_account: {name: 'The Chad Larson Experience'} },
                   { score_reporter_account: {name: 'mixed club team B'} },
                 ],
                 scores: [7, 8],
