@@ -212,7 +212,7 @@ var styles = StyleSheet.create({
   teamContainer: {
     flex: 2,
     flexDirection: 'column',
-    justifyContent: 'center',
+    justifyContent: 'space-between',
     alignItems: 'center',
     width: 80,
   },
@@ -250,7 +250,7 @@ var styles = StyleSheet.create({
   },
   // TODO: see if there is a property to ensure photos don't get cropped. 
   thumbnail: {
-    width: 60,
+    width: 40,
     height: 40,
   },
   listView: {
