@@ -20,10 +20,12 @@ class TournamentCell extends Component {
     return (
       <View style={styles.outerContainer}>
         <View style={styles.thumbnailBorder}>
-          <Image
-            source={{uri: this.getTourneyImage()}}
-            style={styles.thumbnail}
-          />
+          <View style={styles.thumbnailShadow}>
+            <Image
+              source={{uri: this.getTourneyImage()}}
+              style={styles.thumbnail}
+            />
+          </View>
         </View>
         <View style={styles.tournamentInfoContainer}>
           <TouchableHighlight onPress={() => this.selectTournament(this.tournament)}>
@@ -84,13 +86,22 @@ var styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
+  thumbnailShadow: {
+    width: 80,
+    height: 60,
+    borderRadius: 5,
+    shadowRadius: 2,
+    shadowOpacity: 0.8,
+    shadowOffset: {
+      width: 0,
+      height: 1,
+    },
+    shadowColor: '#000000',
+    backgroundColor: '#F5FCFF',
+  },
   thumbnail: {
     width: 80,
     height: 60,
-    borderBottomWidth: 10,
-    borderLeftWidth: 10,
-    borderRightWidth: 10,
-    borderTopWidth: 10,
   },
   tournamentInfoContainer: {
     flex: 3,

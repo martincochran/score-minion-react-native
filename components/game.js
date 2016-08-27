@@ -97,10 +97,12 @@ var GamesComponent = React.createClass({
         </View>
         <View style={styles.container}>
           <View style={styles.teamContainer}>
-            <Image
-              source={{uri: getImage(game.teams[0])}}
-              style={styles.thumbnail}
-            />
+            <View style={styles.thumbnailShadow}>
+              <Image
+                source={{uri: getImage(game.teams[0])}}
+                style={styles.thumbnail}
+              />
+            </View>
             <Text style={styles.teams}>{getTeamName(game.teams[0])}</Text>
           </View>
           <View style={styles.scoreContainer}>
@@ -109,10 +111,12 @@ var GamesComponent = React.createClass({
             <Text style={styles.scoreRight}>{getRawScore(game.scores, 1)}</Text>
           </View>
           <View style={styles.teamContainer}>
-            <Image
-              source={{uri: getImage(game.teams[1])}}
-              style={styles.thumbnail}
-            />
+            <View style={styles.thumbnailShadow}>
+              <Image
+                source={{uri: getImage(game.teams[1])}}
+                style={styles.thumbnail}
+              />
+            </View>
             <Text style={styles.teams}>{getTeamName(game.teams[1])}</Text>
           </View>
         </View>
@@ -250,10 +254,23 @@ var styles = StyleSheet.create({
     height: 14,
     width: 120,
   },
+  thumbnailShadow: {
+    width: 40,
+    height: 40,
+    borderRadius: 5,
+    shadowRadius: 2,
+    shadowOpacity: 0.8,
+    shadowOffset: {
+      width: 0,
+      height: 1,
+    },
+    shadowColor: '#000000',
+  },
   // TODO: see if there is a property to ensure photos don't get cropped. 
   thumbnail: {
     width: 40,
     height: 40,
+    borderRadius: 5,
   },
   listView: {
     flex: 3,

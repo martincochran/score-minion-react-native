@@ -5,7 +5,7 @@ import React from 'react-native';
 var {AsyncStorage} = React;
 
 var API_URL = 'https://omega-bearing-780.appspot.com/_ah/api/scores/v1/tournaments';
-var NUM_TOURNEYS = 2;
+var NUM_TOURNEYS = 10;
 var PARAMS = '?count=' + NUM_TOURNEYS;
 var REQUEST_URL = API_URL + PARAMS;
 
@@ -24,16 +24,16 @@ export default Reflux.createStore({
   // Loads the scores from the local storage then queues up a refresh from the
   // API.
   async _loadScores() {
+    this._allData = [];
     try {
       var val = await AsyncStorage.getItem(SCORES_KEY);
       if (val !== null) {
-        this._allData = JSON.parse(val).map((scores) => {
-          this._allData = scores;
-        });
+        this._allData = JSON.parse(val);
         this.emit();
       }
       else {
         console.info(`${SCORES_KEY} not found on disk.`);
+        this._allData = [];
       }
     }
     catch (error) {
@@ -56,14 +56,13 @@ export default Reflux.createStore({
 
   // Fetches the scores from the API.
   async fetchScores() {
-    this._fetchMockScores();
-    //this._fetchApiScores();
+    //this._fetchMockScores();
+    this._fetchApiScores();
     this._writeScores();
     this._updateVisibleScores();
   },
 
   _fetchApiScores() {
-    this._allData = [];
     fetch(REQUEST_URL)
       .then((response) => response.json())
       .then((responseData) => {
